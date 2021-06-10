@@ -4,15 +4,12 @@ package cz.stv.filechooserfx;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PipedWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -68,11 +65,11 @@ public class MainController implements Initializable
   private String suffixBackup;
   
   
-  private App app;
+  private FileChooser app;
   
   
   
-  public void setApp(App app)
+  public void setApp(FileChooser app)
   {
     this.app = app;
   }
@@ -232,8 +229,17 @@ public class MainController implements Initializable
   @FXML
   public void save ( ActionEvent event )
   {
-    returnFile = new File(path+saving.getText());  
-    app.stage.close();
+    try
+    {
+      returnFile = new File(path+saving.getText());
+      if (! returnFile.exists() )
+        returnFile.createNewFile();
+      app.stage.close();
+    }
+    catch (IOException ex)
+    {
+      ex.printStackTrace(System.err);
+    }
   }
   
   @Override

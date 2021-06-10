@@ -2,7 +2,6 @@ package cz.stv.filechooserfx;
 
 
 import java.io.File;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,43 +11,49 @@ import java.io.IOException;
 
 
 /**
- * JavaFX App
+ * JavaFX FileChooser
+ * 
+ * @author Raferat
+ * @version 1.0.1
  */
-public class App extends Application
+public class FileChooser
 {
 
-  public static Scene scene;
-  public Stage stage;
-  private MainController mainController;
-  boolean returnNull;
+  static Scene scene;
+  Stage stage;
+  MainController mainController;
   
-  @Override
-  public void start(Stage stage) throws IOException
-  {
-    
-    
-    System.out.println(startFileChooser(stage , "").getAbsolutePath());
-    
-  }
   
-  public File startFileChooser(Stage stage , String fileSuffix , String startDirectory , String bookmarksDir) throws IOException
+  /**
+   * startFileChooser starts the FileChooser
+   * 
+   * 
+   * @param fileSuffix suffix of the file or empty string if you don't want to
+   * @param startDirectory directory where should the FileChooser start
+   * @param bookmarksDir where are located bookmarks
+   * @return selected file or null if canceled button was pressed
+   * @throws IOException 
+   */  
+  public File startFileChooser(String fileSuffix , String startDirectory , String bookmarksDir) throws IOException
   {
     showFileChooser(fileSuffix , startDirectory , bookmarksDir);
     return mainController.returnFile; 
   }
   
-  public File startFileChooser(Stage stage , String fileSuffix , String startDirectory ) throws IOException
+  /**
+   * startFileChooser starts the FileChooser
+   * 
+   * 
+   * @param fileSuffix suffix of the file or empty string if you don't want to
+   * @param startDirectory directory where should the FileChooser start
+   * @return selected fileor null if canceled button was pressed
+   * @throws IOException 
+   */  
+  public File startFileChooser(String fileSuffix , String startDirectory ) throws IOException
   {
     showFileChooser(fileSuffix , startDirectory , null);
     return mainController.returnFile; 
   }
-  
-  public File startFileChooser(Stage stage , String fileSuffix ) throws IOException
-  {
-    showFileChooser(fileSuffix , null , null);
-    return mainController.returnFile; 
-  }
-  
   
   private void showFileChooser(String fileSuffix , String startDirectory , String bookmarksDir) throws IOException
   {
@@ -60,9 +65,8 @@ public class App extends Application
     mainController.setSuffix(fileSuffix);
     if ( startDirectory != null )
       mainController.loadView(startDirectory);
-    else
-      mainController.loadView("/");
-    
+    else 
+      throw new NullPointerException("startDirectory is null");
     
     if ( bookmarksDir != null )
       mainController.loadBookmarks(bookmarksDir); 
@@ -72,7 +76,7 @@ public class App extends Application
 
   private Parent loadFXML(String fxml) throws IOException
   {
-    FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(FileChooser.class.getResource(fxml + ".fxml"));
     Parent loaded = fxmlLoader.load();
     mainController = fxmlLoader.getController();
     return loaded;
@@ -81,11 +85,19 @@ public class App extends Application
 //==============================================================================
 //getter , setter
 
+  /**
+   * Sets the text of save button
+   * @param text is setted as button text
+   */
   public void setSaveButtonText ( String text )
   {
     mainController.save.setText(text);
   }
   
+  /**
+   * Sets the text of cancel button
+   * @param text is setted as button text
+   */
   public void setCancelButtonText ( String text )
   {
     mainController.save.setText(text);
@@ -93,10 +105,4 @@ public class App extends Application
   
   
 //==============================================================================
-  
-  public static void main(String[] args)
-  {
-    launch();
-  }
-
 }
