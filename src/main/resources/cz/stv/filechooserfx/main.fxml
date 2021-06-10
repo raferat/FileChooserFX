@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.stv.filechooserfx.MainController">
+   <children>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+            <Label alignment="CENTER" graphicTextGap="6.0" prefHeight="30.0" prefWidth="130.0" text="Directory:" textAlignment="CENTER" />
+            <TextField fx:id="directory" prefHeight="26.0" prefWidth="510.0" />
+            <Button fx:id="upArrow" mnemonicParsing="false" onAction="#upDirectory" prefHeight="35.0" prefWidth="30.0">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@arrow2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+        </items>
+      </ToolBar>
+      <HBox prefHeight="334.0" prefWidth="700.0">
+         <children>
+            <ListView fx:id="bookemarkView" onMouseClicked="#mouseClickedOnBookmarkView" prefHeight="334.0" prefWidth="200.0" />
+            <Separator orientation="VERTICAL" prefHeight="334.0" prefWidth="10.0" />
+            <ListView fx:id="fileView" onMouseClicked="#mouseClickedOnFileView" prefHeight="334.0" prefWidth="490.0" />
+         </children>
+      </HBox>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="700.0">
+         <children>
+            <Button fx:id="save" layoutX="570.0" layoutY="55.0" mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="110.0" text="Save" />
+            <Button fx:id="cancel" layoutX="450.0" layoutY="55.0" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="110.0" text="Cancel" />
+            <TextField fx:id="saving" layoutX="12.0" layoutY="5.0" prefHeight="33.0" prefWidth="544.0" />
+            <MenuButton fx:id="menu" alignment="CENTER" layoutX="570.0" layoutY="9.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Suffix:" textAlignment="CENTER">
+              <items>
+                <MenuItem fx:id="filter" mnemonicParsing="false" onAction="#startFilter" text="Action 1" />
+                <MenuItem fx:id="all" mnemonicParsing="false" onAction="#dontFilter" text="All files" />
+              </items>
+            </MenuButton>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
